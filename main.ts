@@ -37,6 +37,8 @@ function run(program, input) {
   let pc = 0;
   let steps = 0;
   const done = (exit, trap) => ({ stdout: out.slice(0, olen), exit, trap, steps });
+  // Traps: the entry's exit code doubles as the trap number, matching the
+  // reference VM's behavior for every failure mode the ISA defines.
   const trap = (code) => done(code, code);
   for (;;) {
     if (steps === STEP_LIMIT) return trap(TRAP.STEPS);
